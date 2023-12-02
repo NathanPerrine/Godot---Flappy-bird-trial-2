@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://8aj2ajhm2n4a"]
+
+[ext_resource type="Texture2D" uid="uid://b0ipsx8537jlt" path="res://assets/Flappy Bird Assets/ground.png" id="1_mp6yp"]
+[ext_resource type="Script" path="res://scenes/ground.gd" id="1_wybhb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ujhwm"]
+size = Vector2(1730, 165)
+
+[node name="Ground" type="Area2D"]
+script = ExtResource("1_wybhb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(864, 880)
+texture = ExtResource("1_mp6yp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(865, 881.5)
+shape = SubResource("RectangleShape2D_ujhwm")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
