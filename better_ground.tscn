@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cp5b36q1nejk1"]
+
+[node name="BetterGround" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="TileMap" type="TileMap" parent="ParallaxBackground"]
+format = 2
