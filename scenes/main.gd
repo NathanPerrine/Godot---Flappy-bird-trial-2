@@ -48,6 +48,7 @@ func start_game():
 	$Bird.flying = true
 	$Bird.flap()
 	$PipeTimer.start()
+	$ParallaxBackground/ParallaxLayer.BACKGROUND_SPEED = -15
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -64,7 +65,6 @@ func _process(delta):
 		# Move pipes
 		for pipe in pipes:
 			pipe.position.x -= SCROLL_SPEED
-
 
 func _on_pipe_timer_timeout():
 	generate_pipes()
@@ -89,6 +89,7 @@ func stop_game():
 	$Bird.flying = false
 	game_running = false
 	game_over = true
+	$ParallaxBackground/ParallaxLayer.BACKGROUND_SPEED = 0
 	
 func bird_hit():
 	$Bird.falling = true
