@@ -61,10 +61,13 @@ func _process(delta):
 		
 		# Move ground node
 		$Ground.position.x = -scroll
+		$BetterGround.scroll_base_offset.x = -scroll
 		
 		# Move pipes
 		for pipe in pipes:
 			pipe.position.x -= SCROLL_SPEED
+			
+		# Move ground
 
 func _on_pipe_timer_timeout():
 	generate_pipes()

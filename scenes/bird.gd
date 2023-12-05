@@ -3,13 +3,20 @@ extends CharacterBody2D
 
 const GRAVITY : int = 1000
 const MAX_VEL : int = 600
-const FLAP_SPEED : int = -500
+const FLAP_SPEED : int = -350
 var flying : bool = false
 var falling : bool = false
-const START_POS = Vector2(100, 430)
+var START_POS : Vector2
+
+var screen_size = Vector2(0,0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	screen_size.x = get_viewport().get_visible_rect().size.x # Get Width
+	screen_size.y = get_viewport().get_visible_rect().size.y # Get Height
+	print(screen_size)
+	START_POS = Vector2(screen_size.x / 5, screen_size.y / 2)
+	print('start pos: ' + str(START_POS))
 	reset()
 	
 func reset(): 

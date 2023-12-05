@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://epcj56abwfh3"]
+[gd_scene load_steps=10 format=3 uid="uid://epcj56abwfh3"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_lo2wc"]
 [ext_resource type="Texture2D" uid="uid://cs2ojpkwvf4dg" path="res://assets/Flappy Bird Assets/Background/Background2.png" id="1_qgal0"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scenes/Background.gd" id="3_qqoq5"]
 [ext_resource type="PackedScene" uid="uid://8aj2ajhm2n4a" path="res://scenes/ground.tscn" id="4_v6kse"]
 [ext_resource type="PackedScene" uid="uid://50qpy8anb7m7" path="res://scenes/game_over.tscn" id="6_6fc7v"]
+[ext_resource type="PackedScene" uid="uid://cdg4gnuwsdm7k" path="res://scenes/better_ground.tscn" id="8_q6l5s"]
 
 [sub_resource type="GDScript" id="GDScript_soe3r"]
 script/source = "extends Sprite2D
@@ -29,18 +30,21 @@ pipe_scene = ExtResource("2_emlps")
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_mirroring = Vector2(864, 0)
+motion_mirroring = Vector2(256, 0)
 script = ExtResource("3_qqoq5")
 
 [node name="Background" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-scale = Vector2(3.375, 3.15625)
+position = Vector2(-1.90735e-06, 0)
+scale = Vector2(1, 1.28125)
 texture = ExtResource("1_qgal0")
 centered = false
 script = SubResource("GDScript_soe3r")
 
 [node name="Bird" parent="." instance=ExtResource("3_jqlnc")]
+position = Vector2(32, 160)
 
 [node name="Ground" parent="." instance=ExtResource("4_v6kse")]
+visible = false
 z_index = 1
 
 [node name="PipeTimer" type="Timer" parent="."]
@@ -62,6 +66,8 @@ theme_override_font_sizes/font_size = 40
 text = "Score: 0"
 
 [node name="GameOver" parent="." instance=ExtResource("6_6fc7v")]
+
+[node name="BetterGround" parent="." instance=ExtResource("8_q6l5s")]
 
 [connection signal="hit" from="Ground" to="." method="_on_ground_hit"]
 [connection signal="timeout" from="PipeTimer" to="." method="_on_pipe_timer_timeout"]

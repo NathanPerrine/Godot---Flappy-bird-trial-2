@@ -16,10 +16,10 @@ texture = ExtResource("2_p8p0x")
 script = ExtResource("1_wb38e")
 
 [node name="RestartButton" type="Button" parent="."]
-offset_left = 342.0
-offset_top = 350.0
-offset_right = 502.0
-offset_bottom = 413.0
+offset_left = 16.0
+offset_top = 120.0
+offset_right = 176.0
+offset_bottom = 183.0
 theme_override_styles/normal = SubResource("StyleBoxTexture_2bglx")
 theme_override_styles/hover = SubResource("StyleBoxTexture_fvdrl")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_jpb3g")
