@@ -171,6 +171,8 @@ texture_region_size = Vector2i(32, 16)
 [sub_resource type="TileSet" id="TileSet_rqipa"]
 tile_size = Vector2i(32, 16)
 physics_layer_0/collision_layer = 1
+custom_data_layer_0/name = ""
+custom_data_layer_0/type = 0
 sources/0 = SubResource("TileSetAtlasSource_0b8ce")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wbahs"]
@@ -192,3 +194,5 @@ shape = SubResource("RectangleShape2D_wbahs")
 position = Vector2(2.86102e-06, 192)
 scale = Vector2(0.0357143, 1.5)
 texture = ExtResource("3_su2r4")
+
+[connection signal="body_entered" from="ScoreArea" to="." method="_on_score_area_body_entered"]

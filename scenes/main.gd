@@ -16,7 +16,9 @@ const PIPE_RANGE : int = 200
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_window().size
-	ground_height = $Ground.get_node("Sprite2D").texture.get_height()
+	
+	#ground_height = $Ground.get_node("Sprite2D").texture.get_height()
+	
 	new_game()
 	
 func new_game():
@@ -25,9 +27,13 @@ func new_game():
 	game_over = false
 	score = 0
 	scroll = 0
-	pipes.clear()
-	get_tree().call_group("pipes", "queue_free")
-	generate_pipes()
+	
+	
+	#pipes.clear()
+	#get_tree().call_group("pipes", "queue_free")
+	#generate_pipes()
+	
+	
 	$Bird.reset()
 	$CanvasLayer/ScoreLabel.text = "Score: " + str(score)
 	$GameOver.hide()
@@ -49,37 +55,42 @@ func start_game():
 	$Bird.flap()
 	$PipeTimer.start()
 	$ParallaxBackground/ParallaxLayer.BACKGROUND_SPEED = -15
+	$BetterGround.scroll_speed = SCROLL_SPEED
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	pass
 	if game_running:
 		scroll += SCROLL_SPEED
 		
 		# Reset scroll
-		if scroll >= screen_size.x:
-			scroll = 0
+		#if scroll >= screen_size.x:
+			#scroll = 0
 		
 		# Move ground node
-		$Ground.position.x = -scroll
-		$BetterGround.scroll_base_offset.x = -scroll
+		#$Ground.position.x = -scroll
+		
+		#$BetterGround.scroll_base_offset.x = -scroll
+		#$BetterGround.scroll_speed = SCROLL_SPEED
 		
 		# Move pipes
-		for pipe in pipes:
-			pipe.position.x -= SCROLL_SPEED
+		#for pipe in pipes:
+			#pipe.position.x -= SCROLL_SPEED
 			
 		# Move ground
 
 func _on_pipe_timer_timeout():
-	generate_pipes()
+	pass
+	#generate_pipes()
 	
-func generate_pipes():
-	var pipe = pipe_scene.instantiate()
-	pipe.position.x = screen_size.x + PIPE_DELAY
-	pipe.position.y = (screen_size.y - ground_height) / 2 + randi_range(-PIPE_RANGE, PIPE_RANGE)
-	pipe.hit.connect(bird_hit)
-	pipe.scored.connect(scored)
-	add_child(pipe)
-	pipes.append(pipe)
+#func generate_pipes():
+	#var pipe = pipe_scene.instantiate()
+	#pipe.position.x = screen_size.x + PIPE_DELAY
+	#pipe.position.y = (screen_size.y - ground_height) / 2 + randi_range(-PIPE_RANGE, PIPE_RANGE)
+	#pipe.hit.connect(bird_hit)
+	#pipe.scored.connect(scored)
+	#add_child(pipe)
+	#pipes.append(pipe)
 	
 func check_top():
 	if $Bird.position.y < 0:

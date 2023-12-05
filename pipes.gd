@@ -1,5 +1,8 @@
 extends TileMap
 
+signal hit
+signal scored
+
 func spawn_pipes(color : String = "green"):	
 	# Upper pipe section
 	var pipe_middle : Vector2i
@@ -87,6 +90,6 @@ func _ready():
 func _process(delta):
 	position.x -= 60 * delta
 
-
 func _on_score_area_body_entered(body):
-	pass # Replace with function body.
+	if body.name == "Bird":
+		scored.emit()

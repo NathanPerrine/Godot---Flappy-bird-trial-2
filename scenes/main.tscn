@@ -1,11 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://epcj56abwfh3"]
+[gd_scene load_steps=9 format=3 uid="uid://epcj56abwfh3"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_lo2wc"]
 [ext_resource type="Texture2D" uid="uid://cs2ojpkwvf4dg" path="res://assets/Flappy Bird Assets/Background/Background2.png" id="1_qgal0"]
 [ext_resource type="PackedScene" uid="uid://cgnsa8troqvmm" path="res://scenes/pipe.tscn" id="2_emlps"]
 [ext_resource type="PackedScene" uid="uid://bep64rs23twrx" path="res://scenes/bird.tscn" id="3_jqlnc"]
 [ext_resource type="Script" path="res://scenes/Background.gd" id="3_qqoq5"]
-[ext_resource type="PackedScene" uid="uid://8aj2ajhm2n4a" path="res://scenes/ground.tscn" id="4_v6kse"]
 [ext_resource type="PackedScene" uid="uid://50qpy8anb7m7" path="res://scenes/game_over.tscn" id="6_6fc7v"]
 [ext_resource type="PackedScene" uid="uid://cdg4gnuwsdm7k" path="res://scenes/better_ground.tscn" id="8_q6l5s"]
 
@@ -43,10 +42,6 @@ script = SubResource("GDScript_soe3r")
 [node name="Bird" parent="." instance=ExtResource("3_jqlnc")]
 position = Vector2(32, 160)
 
-[node name="Ground" parent="." instance=ExtResource("4_v6kse")]
-visible = false
-z_index = 1
-
 [node name="PipeTimer" type="Timer" parent="."]
 wait_time = 2.0
 
@@ -56,19 +51,18 @@ wait_time = 2.0
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -30.5
-offset_right = 30.5
-offset_bottom = 23.0
+offset_left = -75.0
+offset_right = 75.0
+offset_bottom = 55.0
 grow_horizontal = 2
 size_flags_horizontal = 8
 size_flags_vertical = 1
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 20
 text = "Score: 0"
 
 [node name="GameOver" parent="." instance=ExtResource("6_6fc7v")]
 
 [node name="BetterGround" parent="." instance=ExtResource("8_q6l5s")]
 
-[connection signal="hit" from="Ground" to="." method="_on_ground_hit"]
 [connection signal="timeout" from="PipeTimer" to="." method="_on_pipe_timer_timeout"]
 [connection signal="restart" from="GameOver" to="." method="_on_game_over_restart"]

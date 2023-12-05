@@ -14,9 +14,7 @@ var screen_size = Vector2(0,0)
 func _ready():
 	screen_size.x = get_viewport().get_visible_rect().size.x # Get Width
 	screen_size.y = get_viewport().get_visible_rect().size.y # Get Height
-	print(screen_size)
 	START_POS = Vector2(screen_size.x / 5, screen_size.y / 2)
-	print('start pos: ' + str(START_POS))
 	reset()
 	
 func reset(): 
