@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://cdg4gnuwsdm7k"]
+[gd_scene load_steps=6 format=3 uid="uid://cdg4gnuwsdm7k"]
 
 [ext_resource type="Texture2D" uid="uid://dkgy1p6fcmyhi" path="res://assets/Flappy Bird Assets/Tileset/Style 1/TileStyle1.png" id="1_hb8c7"]
 
 [sub_resource type="GDScript" id="GDScript_clhok"]
 script/source = "extends ParallaxBackground
+
+#var ground
+signal hit
 
 @export var scroll_speed : float = 0.0
 var scroll : float = 0.0
@@ -19,6 +22,13 @@ func _process(delta):
 	scroll += scroll_speed
 	#self.scroll_base_offset.x -= scroll_speed * delta
 	self.scroll_base_offset.x = -scroll
+
+
+func _on_area_2d_body_entered(body):
+	if body.name == \"Bird\":
+		hit.emit()
+		print(\"hit.emit()\")
+	pass # Replace with function body.
 "
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hpjd7"]
@@ -436,6 +446,9 @@ texture = ExtResource("1_hb8c7")
 physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_hpjd7")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vbfxc"]
+size = Vector2(256, 19)
+
 [node name="BetterGround" type="ParallaxBackground"]
 layer = 1
 script = SubResource("GDScript_clhok")
@@ -446,6 +459,13 @@ motion_mirroring = Vector2(256, 0)
 
 [node name="TileMap" type="TileMap" parent="ParallaxLayer"]
 tile_set = SubResource("TileSet_0wqm2")
-collision_visibility_mode = 1
 format = 2
 layer_0/tile_data = PackedInt32Array(1310720, 65537, 5, 1376256, 131073, 2, 1441792, 131073, 2, 1507328, 262145, 5, 1310721, 196609, 5, 1376257, 131073, 2, 1441793, 131073, 2, 1507329, 262145, 5, 1310722, 131073, 5, 1376258, 131073, 2, 1441794, 131073, 2, 1507330, 262145, 5, 1310723, 131073, 5, 1376259, 131073, 2, 1441795, 131073, 2, 1507331, 262145, 5, 1310724, 393217, 1, 1376260, 393217, 3, 1441796, 131073, 2, 1507332, 262145, 5, 1310725, 458753, 1, 1376261, 458753, 3, 1441797, 131073, 2, 1507333, 262145, 5, 1310726, 131073, 1, 1376262, 131073, 2, 1441798, 131073, 2, 1507334, 262145, 5, 1310727, 196609, 5, 1376263, 131073, 2, 1441799, 131073, 2, 1507335, 262145, 5, 1310728, 131073, 1, 1376264, 131073, 2, 1441800, 131073, 2, 1507336, 262145, 5, 1310729, 131073, 1, 1376265, 393217, 2, 1441801, 393217, 3, 1310730, 131073, 1, 1376266, 458753, 2, 1441802, 458753, 3, 1310731, 65537, 5, 1376267, 131073, 2, 1441803, 131073, 2, 1310732, 131073, 5, 1376268, 131073, 2, 1441804, 131073, 2, 1507337, 262145, 5, 1507338, 262145, 5, 1507339, 262145, 5, 1507340, 262145, 5, 1507341, 262145, 5, 1441805, 131073, 2, 1376269, 131073, 2, 1310733, 131073, 1, 1310734, 131073, 1, 1310735, 131073, 1, 1376270, 131073, 2, 1441806, 131073, 2, 1441807, 131073, 2, 1507343, 262145, 5, 1376271, 131073, 2, 1507342, 262145, 5, 1310736, 131073, 1, 1310737, 131073, 1, 1310738, 131073, 1)
+
+[node name="Area2D" type="Area2D" parent="ParallaxLayer/TileMap"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParallaxLayer/TileMap/Area2D"]
+position = Vector2(128, 328.5)
+shape = SubResource("RectangleShape2D_vbfxc")
+
+[connection signal="body_entered" from="ParallaxLayer/TileMap/Area2D" to="." method="_on_area_2d_body_entered"]

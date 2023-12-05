@@ -31,11 +31,12 @@ func new_game():
 	
 	#pipes.clear()
 	#get_tree().call_group("pipes", "queue_free")
-	#generate_pipes()
+	generate_pipes()
 	
 	
 	$Bird.reset()
 	$CanvasLayer/ScoreLabel.text = "Score: " + str(score)
+	$BetterGround.scroll_speed = 0.5
 	$GameOver.hide()
 
 func _input(event):
@@ -83,14 +84,14 @@ func _on_pipe_timer_timeout():
 	pass
 	#generate_pipes()
 	
-#func generate_pipes():
-	#var pipe = pipe_scene.instantiate()
-	#pipe.position.x = screen_size.x + PIPE_DELAY
-	#pipe.position.y = (screen_size.y - ground_height) / 2 + randi_range(-PIPE_RANGE, PIPE_RANGE)
-	#pipe.hit.connect(bird_hit)
-	#pipe.scored.connect(scored)
-	#add_child(pipe)
-	#pipes.append(pipe)
+func generate_pipes():
+	var pipe = pipe_scene.instantiate()
+	pipe.position.x = screen_size.x + PIPE_DELAY
+	pipe.position.y = (screen_size.y - ground_height) / 2 + randi_range(-PIPE_RANGE, PIPE_RANGE)
+	pipe.hit.connect(bird_hit)
+	pipe.scored.connect(scored)
+	add_child(pipe)
+	pipes.append(pipe)
 	
 func check_top():
 	if $Bird.position.y < 0:
@@ -104,6 +105,7 @@ func stop_game():
 	game_running = false
 	game_over = true
 	$ParallaxBackground/ParallaxLayer.BACKGROUND_SPEED = 0
+	$BetterGround.scroll_speed = 0
 	
 func bird_hit():
 	$Bird.falling = true
@@ -120,3 +122,9 @@ func scored():
 
 func _on_game_over_restart():
 	new_game()
+
+
+func _on_better_ground_hit():
+	$Bird.falling = true
+	stop_game()
+	pass # Replace with function body.

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_lo2wc"]
 [ext_resource type="Texture2D" uid="uid://cs2ojpkwvf4dg" path="res://assets/Flappy Bird Assets/Background/Background2.png" id="1_qgal0"]
-[ext_resource type="PackedScene" uid="uid://cgnsa8troqvmm" path="res://scenes/pipe.tscn" id="2_emlps"]
+[ext_resource type="PackedScene" uid="uid://dt7c6retiw7lm" path="res://scenes/pipes.tscn" id="2_53eu2"]
 [ext_resource type="PackedScene" uid="uid://bep64rs23twrx" path="res://scenes/bird.tscn" id="3_jqlnc"]
 [ext_resource type="Script" path="res://scenes/Background.gd" id="3_qqoq5"]
 [ext_resource type="PackedScene" uid="uid://50qpy8anb7m7" path="res://scenes/game_over.tscn" id="6_6fc7v"]
@@ -24,7 +24,7 @@ func _process(delta):
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_lo2wc")
-pipe_scene = ExtResource("2_emlps")
+pipe_scene = ExtResource("2_53eu2")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -66,3 +66,4 @@ text = "Score: 0"
 
 [connection signal="timeout" from="PipeTimer" to="." method="_on_pipe_timer_timeout"]
 [connection signal="restart" from="GameOver" to="." method="_on_game_over_restart"]
+[connection signal="hit" from="BetterGround" to="." method="_on_better_ground_hit"]
