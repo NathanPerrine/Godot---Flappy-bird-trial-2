@@ -129,3 +129,8 @@ func _on_game_over_restart():
 func _on_better_ground_hit():
 	$Bird.falling = true
 	stop_game()
+
+
+func _on_bird_hit_wall():
+	$Bird.falling = true
+	stop_game()

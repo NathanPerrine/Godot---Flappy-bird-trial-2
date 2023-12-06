@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-
+signal hit_wall
 const GRAVITY : int = 1000
 const MAX_VEL : int = 600
 const FLAP_SPEED : int = -250
@@ -32,7 +32,7 @@ func _physics_process(delta):
 		if velocity.y > MAX_VEL:
 			velocity.y = MAX_VEL
 		if flying: 
-			set_rotation(deg_to_rad(velocity.y * 0.05))
+			set_rotation(deg_to_rad(velocity.y * 0.1))
 			$AnimatedSprite2D.play()
 		elif falling:
 			set_rotation(PI/2)
@@ -43,3 +43,7 @@ func _physics_process(delta):
 		
 func flap():
 	velocity.y = FLAP_SPEED
+
+func _on_area_2d_body_entered(body):
+	if "wall" in body:
+		hit_wall.emit()

@@ -3,6 +3,8 @@ extends TileMap
 signal hit
 signal scored
 
+var wall
+
 @export var scroll_speed : float = 0.0
 var viewport_width : int 
 
@@ -94,7 +96,6 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	self.position.x -= scroll_speed
-	print(self.position.x)
 	
 	# Delete self if after leaving view
 	if self.position.x < -(viewport_width + 32):
@@ -102,7 +103,6 @@ func _process(delta):
 
 func _on_score_area_body_entered(body):
 	if body.name == "Bird":
-		print('scored')
 		scored.emit()
 
 func stop():
