@@ -41,7 +41,6 @@ script = SubResource("GDScript_soe3r")
 position = Vector2(32, 160)
 
 [node name="PipeTimer" type="Timer" parent="."]
-wait_time = 2.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

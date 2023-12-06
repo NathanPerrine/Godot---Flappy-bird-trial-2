@@ -83,8 +83,8 @@ func _process(delta):
 		# Move ground
 
 func _on_pipe_timer_timeout():
-	pass
-	#generate_pipes()
+	#pass
+	generate_pipes()
 	
 func generate_pipes():
 	var pipe = pipe_scene.instantiate()
@@ -93,15 +93,8 @@ func generate_pipes():
 	pipe.spawn_pipes("yellow")
 	pipe.scored.connect(scored)
 	pipes.append(pipe)
-	#print('pipe.spawn_pipes')
 	
-	#print(pipe)
-	#pipe.position.x = screen_size.x + PIPE_DELAY
-	#pipe.position.y = (screen_size.y - ground_height) / 2 + randi_range(-PIPE_RANGE, PIPE_RANGE)
 	#pipe.hit.connect(bird_hit)
-	#pipe.scored.connect(scored)
-	#add_child(pipe)
-	#pipes.append(pipe)
 	
 func check_top():
 	if $Bird.position.y < 0:
