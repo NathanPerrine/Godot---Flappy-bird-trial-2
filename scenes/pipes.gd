@@ -67,7 +67,7 @@ func spawn_pipes(color : String = "green"):
 			pipe_lower_shadow 	= Vector2i(3, 6)
 	
 	# Set top pipe
-	var randRangeTop = randi_range(1,15)
+	var randRangeTop = randi_range(3,12)
 	
 	for i in range(randRangeTop):
 		# Upper pipe middle section
