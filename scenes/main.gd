@@ -14,6 +14,7 @@ var pipes : Array
 const PIPE_DELAY : int = 100
 const PIPE_RANGE : int = 200
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_window().size
@@ -21,7 +22,8 @@ func _ready():
 	#ground_height = $Ground.get_node("Sprite2D").texture.get_height()
 	
 	new_game()
-	
+
+
 func new_game():
 	# Reset variables
 	game_running = false
@@ -40,6 +42,7 @@ func new_game():
 	$BetterGround.scroll_speed = 0.5
 	$GameOver.hide()
 
+
 func _input(event):
 	if game_over == false:
 		if event is InputEventMouseButton:
@@ -51,6 +54,7 @@ func _input(event):
 						$Bird.flap()
 						check_top()
 
+
 func start_game():
 	game_running = true
 	$Bird.flying = true
@@ -59,6 +63,7 @@ func start_game():
 	$ParallaxBackground/ParallaxLayer.BACKGROUND_SPEED = -15
 	$BetterGround.scroll_speed = SCROLL_SPEED
 	generate_pipes()
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -82,10 +87,12 @@ func _process(delta):
 			
 		# Move ground
 
+
 func _on_pipe_timer_timeout():
 	#pass
 	generate_pipes()
-	
+
+
 func generate_pipes():
 	var pipe = pipe_scene.instantiate()
 	add_child(pipe)
@@ -95,12 +102,14 @@ func generate_pipes():
 	pipes.append(pipe)
 	
 	#pipe.hit.connect(bird_hit)
-	
+
+
 func check_top():
 	if $Bird.position.y < 0:
 		$Bird.falling = true
 		stop_game()
-		
+
+
 func stop_game():
 	$PipeTimer.stop()
 	$GameOver.show()
@@ -110,21 +119,26 @@ func stop_game():
 	$ParallaxBackground/ParallaxLayer.BACKGROUND_SPEED = 0
 	$BetterGround.scroll_speed = 0
 	get_tree().call_group("pipes", "stop")
-	
+
+
 func bird_hit():
 	$Bird.falling = true
 	stop_game()
 
+
 func _on_ground_hit():
 	$Bird.falling = false
 	stop_game()
-	
+
+
 func scored():
 	score += 1
 	$CanvasLayer/ScoreLabel.text = "Score: " + str(score)
 
+
 func _on_game_over_restart():
 	new_game()
+
 
 func _on_better_ground_hit():
 	$Bird.falling = true
