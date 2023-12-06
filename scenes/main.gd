@@ -1,6 +1,7 @@
 extends Node2D
 
-@export var pipe_scene : PackedScene
+#@export var pipe_scene : PackedScene
+@onready var pipe_scene = preload("res://scenes/pipes.tscn")
 
 var game_running : bool
 var game_over : bool
@@ -30,8 +31,8 @@ func new_game():
 	
 	
 	#pipes.clear()
-	#get_tree().call_group("pipes", "queue_free")
-	generate_pipes()
+	get_tree().call_group("pipes", "queue_free")
+	
 	
 	
 	$Bird.reset()
@@ -57,6 +58,7 @@ func start_game():
 	$PipeTimer.start()
 	$ParallaxBackground/ParallaxLayer.BACKGROUND_SPEED = -15
 	$BetterGround.scroll_speed = SCROLL_SPEED
+	generate_pipes()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -86,12 +88,20 @@ func _on_pipe_timer_timeout():
 	
 func generate_pipes():
 	var pipe = pipe_scene.instantiate()
-	pipe.position.x = screen_size.x + PIPE_DELAY
-	pipe.position.y = (screen_size.y - ground_height) / 2 + randi_range(-PIPE_RANGE, PIPE_RANGE)
-	pipe.hit.connect(bird_hit)
-	pipe.scored.connect(scored)
 	add_child(pipe)
+	pipe.scroll_speed = 1.0
+	pipe.spawn_pipes("yellow")
+	pipe.scored.connect(scored)
 	pipes.append(pipe)
+	#print('pipe.spawn_pipes')
+	
+	#print(pipe)
+	#pipe.position.x = screen_size.x + PIPE_DELAY
+	#pipe.position.y = (screen_size.y - ground_height) / 2 + randi_range(-PIPE_RANGE, PIPE_RANGE)
+	#pipe.hit.connect(bird_hit)
+	#pipe.scored.connect(scored)
+	#add_child(pipe)
+	#pipes.append(pipe)
 	
 func check_top():
 	if $Bird.position.y < 0:
@@ -106,6 +116,7 @@ func stop_game():
 	game_over = true
 	$ParallaxBackground/ParallaxLayer.BACKGROUND_SPEED = 0
 	$BetterGround.scroll_speed = 0
+	get_tree().call_group("pipes", "stop")
 	
 func bird_hit():
 	$Bird.falling = true
@@ -119,12 +130,9 @@ func scored():
 	score += 1
 	$CanvasLayer/ScoreLabel.text = "Score: " + str(score)
 
-
 func _on_game_over_restart():
 	new_game()
-
 
 func _on_better_ground_hit():
 	$Bird.falling = true
 	stop_game()
-	pass # Replace with function body.

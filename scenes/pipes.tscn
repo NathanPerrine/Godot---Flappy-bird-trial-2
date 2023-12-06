@@ -178,21 +178,22 @@ sources/0 = SubResource("TileSetAtlasSource_0b8ce")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wbahs"]
 size = Vector2(20, 385)
 
-[node name="Pipes" type="TileMap"]
+[node name="Pipes" type="TileMap" groups=["pipes"]]
 tile_set = SubResource("TileSet_rqipa")
 format = 2
 script = ExtResource("2_ljxp7")
 
 [node name="ScoreArea" type="Area2D" parent="."]
-position = Vector2(256, 0)
+position = Vector2(248, 0)
 
 [node name="ScoreCollisionShape" type="CollisionShape2D" parent="ScoreArea"]
 position = Vector2(0, 191.5)
 shape = SubResource("RectangleShape2D_wbahs")
 
 [node name="Sprite2D" type="Sprite2D" parent="ScoreArea"]
-position = Vector2(2.86102e-06, 192)
-scale = Vector2(0.0357143, 1.5)
+visible = false
+position = Vector2(-4, 192)
+scale = Vector2(0.0178571, 1.5)
 texture = ExtResource("3_0igf0")
 
 [connection signal="body_entered" from="ScoreArea" to="." method="_on_score_area_body_entered"]

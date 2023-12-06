@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 const GRAVITY : int = 1000
 const MAX_VEL : int = 600
-const FLAP_SPEED : int = -350
+const FLAP_SPEED : int = -250
 var flying : bool = false
 var falling : bool = false
 var START_POS : Vector2

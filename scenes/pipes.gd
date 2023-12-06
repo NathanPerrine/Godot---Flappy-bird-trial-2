@@ -3,6 +3,9 @@ extends TileMap
 signal hit
 signal scored
 
+@export var scroll_speed : float = 0.0
+var viewport_width : int 
+
 func spawn_pipes(color : String = "green"):	
 	# Upper pipe section
 	var pipe_middle : Vector2i
@@ -84,12 +87,23 @@ func spawn_pipes(color : String = "green"):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	spawn_pipes("green")
+	#spawn_pipes("green")
+	viewport_width = get_viewport().get_visible_rect().size.x
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	position.x -= 60 * delta
+	self.position.x -= scroll_speed
+	print(self.position.x)
+	
+	# Delete self if after leaving view
+	if self.position.x < -(viewport_width + 32):
+		self.queue_free()
 
 func _on_score_area_body_entered(body):
 	if body.name == "Bird":
+		print('scored')
 		scored.emit()
+
+func stop():
+	scroll_speed = 0.0
